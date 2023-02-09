@@ -1,6 +1,7 @@
 {
   description = "crosvm";
 
+  inputs.nixpkgs.url = "nixpkgs/nixos-22.11";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   outputs = {
