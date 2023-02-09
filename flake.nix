@@ -4,6 +4,11 @@
   inputs.nixpkgs.url = "nixpkgs/nixos-22.11";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
+  nixConfig = {
+    extra-substituters = ["https://rivosinc.cachix.org"];
+    extra-trusted-public-keys = ["rivosinc.cachix.org-1:GukvLG5z5jPxRuDu9xLyul0vue1gD1wSChJjljiwpf0="];
+  };
+
   outputs = {
     self,
     nixpkgs,
