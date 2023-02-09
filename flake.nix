@@ -3,6 +3,7 @@
 
   inputs.nixpkgs.url = "nixpkgs/nixos-22.11";
   inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.nix-filter.url = "github:numtide/nix-filter";
 
   nixConfig = {
     extra-substituters = ["https://rivosinc.cachix.org"];
@@ -13,10 +14,19 @@
     self,
     nixpkgs,
     flake-utils,
+    nix-filter,
   }: let
     inherit (flake-utils) lib;
     version = self.shortRev or "dirty";
-    src = self;
+    src = nix-filter.lib {
+      root = ./.;
+      exclude = [
+        ./flake.nix
+        ./flake.lock
+        (nix-filter.lib.matchExt "nix")
+        ./.github
+      ];
+    };
   in
     lib.eachSystem [
       lib.system.aarch64-linux
